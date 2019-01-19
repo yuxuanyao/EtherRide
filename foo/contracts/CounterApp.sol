@@ -7,35 +7,51 @@ contract CounterApp is AragonApp {
     using SafeMath for uint256;
 
     /// Events
-    event Increment(address indexed entity, uint256 step);
-    event Decrement(address indexed entity, uint256 step);
+    event LockCar(address indexed entity);
+    event UnlockCar(address indexed entity);
 
     /// State
-    uint256 public value;
+    /// uint256 public value;
+    
+    /// Info 
+
+    string public name = "myAwesomeCar";
+    string model = "Tesla Model S";
+    string id = "001A";
+    string availability = "Available";
+    bool locked = true;
 
     /// ACL
-    bytes32 constant public INCREMENT_ROLE = keccak256("INCREMENT_ROLE");
-    bytes32 constant public DECREMENT_ROLE = keccak256("DECREMENT_ROLE");
+    bytes32 constant public LOCK_ROLE = keccak256("LOCK_ROLE");
+    bytes32 constant public UNLOCK_ROLE = keccak256("UNLOCK_ROLE");
+
 
     function initialize() onlyInit public {
         initialized();
     }
 
-    /**
-     * @notice Increment the counter by `step`
-     * @param step Amount to increment by
-     */
-    function increment(uint256 step) auth(INCREMENT_ROLE) external {
-        value = value.add(step);
-        emit Increment(msg.sender, step);
-    }
 
     /**
-     * @notice Decrement the counter by `step`
-     * @param step Amount to decrement by
+     * @notice  Add New Car
      */
-    function decrement(uint256 step) auth(DECREMENT_ROLE) external {
-        value = value.sub(step);
-        emit Decrement(msg.sender, step);
+    function lockCar() auth(LOCK_ROLE) external {
+        if(!locked){
+            locked = true;
+        }
+        // emit event
+        emit LockCar(msg.sender);
     }
+
+
+    /**
+     * @notice  Add New Car
+     */
+    function unlockCar() auth(UNLOCK_ROLE) external {
+        if(locked){
+            locked = false;
+        }
+        // emit event
+        emit LockCar(msg.sender);
+    }
+
 }

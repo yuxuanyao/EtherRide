@@ -1,13 +1,13 @@
 {
   "roles": [
     {
-      "name": "Increment the counter",
-      "id": "INCREMENT_ROLE",
+      "name": "Lock the Car",
+      "id": "LOCK_ROLE",
       "params": []
     },
     {
-      "name": "Decrement the counter",
-      "id": "DECREMENT_ROLE",
+      "name": "Unlock the car",
+      "id": "UNLOCK_ROLE",
       "params": []
     }
   ],

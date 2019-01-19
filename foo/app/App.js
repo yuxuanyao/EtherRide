@@ -16,13 +16,18 @@ const AppContainer = styled(AragonApp)`
 `
 
 export default class App extends React.Component {
-  render () {
+  render() {
     return (
       <AppContainer>
         <div>
           <ObservedCount observable={this.props.observable} />
-          <Button onClick={() => this.props.app.decrement(1)}>Decrement</Button>
-          <Button onClick={() => this.props.app.increment(1)}>Increment</Button>
+          <div>
+            <ul>
+              <li>{"name: " + this.props.app.name}</li>
+            </ul>
+          </div>
+          <Button onClick={() => this.props.app.lockCar()}>Lock Car</Button>
+          <Button onClick={() => this.props.app.unlockCar()}>Unlock Car</Button>
         </div>
       </AppContainer>
     )
