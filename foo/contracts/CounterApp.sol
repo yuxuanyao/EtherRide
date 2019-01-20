@@ -16,10 +16,10 @@ contract CounterApp is AragonApp {
     /// Info 
 
     string public name = "myAwesomeCar";
-    string model = "Tesla Model S";
-    string id = "001A";
-    string availability = "Available";
-    bool locked = true;
+    string public model = "Tesla Model S";
+    string public id = "001A";
+    string public availability = "Available";
+    bool public locked = true;
 
     /// ACL
     bytes32 constant public LOCK_ROLE = keccak256("LOCK_ROLE");
@@ -35,9 +35,7 @@ contract CounterApp is AragonApp {
      * @notice  Add New Car
      */
     function lockCar() auth(LOCK_ROLE) external {
-        if(!locked){
-            locked = true;
-        }
+        locked = true;
         // emit event
         emit LockCar(msg.sender);
     }
@@ -47,11 +45,9 @@ contract CounterApp is AragonApp {
      * @notice  Add New Car
      */
     function unlockCar() auth(UNLOCK_ROLE) external {
-        if(locked){
-            locked = false;
-        }
+        locked = false;
         // emit event
-        emit LockCar(msg.sender);
+        emit UnlockCar(msg.sender);
     }
 
 }

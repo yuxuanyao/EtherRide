@@ -15,15 +15,21 @@ const AppContainer = styled(AragonApp)`
   justify-content: center;
 `
 
-export default class App extends React.Component {
+class App extends React.Component {
+  state = {
+    locked: true
+  }
   render() {
     return (
       <AppContainer>
         <div>
-          <ObservedCount observable={this.props.observable} />
           <div>
             <ul>
-              <li>{"name: " + this.props.app.name}</li>
+              <li>Name: MyCar</li>
+              <li>Model: Tesla Model S</li>
+              <li>ID: 0</li>
+              <li>{"Car State: " + ((this.props.locked === undefined) ? "Locked" : (this.props.locked === true ? "Locked" : "Unlocked"))}</li>
+
             </ul>
           </div>
           <Button onClick={() => this.props.app.lockCar()}>Lock Car</Button>
@@ -34,9 +40,7 @@ export default class App extends React.Component {
   }
 }
 
-const ObservedCount = observe(
-  (state$) => state$,
-  { count: 0 }
-)(
-  ({ count }) => <Text.Block style={{ textAlign: 'center' }} size='xxlarge'>{count}</Text.Block>
-)
+export default observe(
+  observable => observable.map(state => ({ ...state })),
+  {}
+)(App)
